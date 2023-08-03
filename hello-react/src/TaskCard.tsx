@@ -1,6 +1,15 @@
 import './TaskCard.css';
+import React from 'react';
 
-const TaskCard = (props) => {
+interface TaskCardProps {
+  title: string;
+  dueDate?: string;
+  completedAtDate?: string;
+  assigneeName: string;
+  val: '0' | '1';
+}
+
+const TaskCard: React.FC<TaskCardProps> = (props) => {
   const { val, title, dueDate, completedAtDate, assigneeName } = props;
   const isPendingTask = val === '0';
 
