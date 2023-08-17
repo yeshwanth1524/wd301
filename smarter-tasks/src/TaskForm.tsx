@@ -7,7 +7,7 @@ interface TaskFormProps {
 
 interface TaskFormState {
     title: string;
-    dueDate: Date;
+    dueDate: string;
     description: string; 
 }
 
@@ -16,7 +16,7 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
     super(props);
     this.state = {
         title: "",
-        dueDate: new Date(),
+        dueDate: "",
         description: "",
       }
   }
@@ -34,7 +34,7 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
       description: this.state.description
     };
     this.props.addTask(newTask);
-    this.setState({ title: "", dueDate: new Date(), description: ""});
+    this.setState({ title: "", dueDate: "", description: ""});
   };
 
   descriptionChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -42,7 +42,7 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
   };
 
   dueDateChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    this.setState({ dueDate: new Date(event.target.value) });
+    this.setState({ dueDate: (event.target.value) });
   };
 
   render(){
@@ -71,7 +71,7 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
             type="date"
             name="dueDate"
             className="w-full px-3 py-2 border rounded focus:border-sky-300"
-            value={this.state.dueDate.toISOString().split('T')[0]} // Formated the date as YYYY-MM-DD
+            value={this.state.dueDate}
             onChange={this.dueDateChanged}
             required
           />
