@@ -1,4 +1,3 @@
-import React from 'react';
 import "./TaskCard.css";
 
 interface TaskProp {
@@ -7,21 +6,16 @@ interface TaskProp {
   description: string
 }
 
-class Task extends React.Component<TaskProp> {
-  render() {
-    const { title, description, dueDate } = this.props;
-    return (
-      <div className="TaskItem shadow-md border border-slate-100">
-        <h2 className="text-base font-bold my-1">{title}</h2>
-        <p className="text-sm">
-          Due Date: {dueDate}
-        </p>
-        <p className="text-sm">
-          Description: {description}
-        </p>
-      </div>
-    );
-  }
-}
+const Task = (props: TaskProp) => {
+  return (
+    <div className="TaskItem shadow-md border border-slate-100">
+    <h2 className="text-base font-bold my-1">{props.title}</h2>
+    <p className="text-sm text-slate-500">{props.dueDate}</p>
+    <p className="text-sm text-slate-500">
+      Description: {props.description}
+    </p>
+  </div>
+  );
+};
 
 export default Task;
