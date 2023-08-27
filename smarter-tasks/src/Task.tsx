@@ -3,7 +3,8 @@ import "./TaskCard.css";
 interface TaskProp {
   title: string;
   dueDate: string,
-  description: string
+  description: string,
+  taskToDelete: () => void;
 }
 
 const Task = (props: TaskProp) => {
@@ -14,6 +15,8 @@ const Task = (props: TaskProp) => {
     <p className="text-sm text-slate-500">
       Description: {props.description}
     </p>
+    <button className="deleteTaskButton" onClick={props.taskToDelete}>
+        Delete ❌</button>
   </div>
   );
 };

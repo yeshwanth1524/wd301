@@ -5,7 +5,7 @@ import TaskList from "./TaskList";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 // interface TaskAppProp {}
-// const TaskApp = (props: TaskAppProp) => {
+// const TaskApp = (props: TaskAppProp) => 
 
 interface TaskAppState {
   tasks: TaskItem[];
@@ -15,6 +15,11 @@ const TaskApp = () => {
   const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks", {
     tasks: [],
   });
+
+  const LeftoverTasks = (updatedTasks: TaskItem[]) => {
+    const updatedState = { ...taskAppState, tasks: updatedTasks };
+    setTaskAppState(updatedState);
+  };
 
   const addTask = (task: TaskItem) => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
@@ -34,7 +39,7 @@ const TaskApp = () => {
             Pending
           </h1>
           <TaskForm addTask={addTask} />
-          <TaskList tasks={taskAppState.tasks} />
+          <TaskList tasks={taskAppState.tasks} LeftoverTasks={LeftoverTasks} />
         </div>
       </div>
     </div>
