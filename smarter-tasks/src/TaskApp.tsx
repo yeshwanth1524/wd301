@@ -15,6 +15,7 @@ const TaskApp = () => {
   const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks", {
     tasks: [],
   });
+  const [indexCounter, setIndexCounter] = useLocalStorage<number>("taskIndexCounter", 1);
 
   const LeftoverTasks = (updatedTasks: TaskItem[]) => {
     const updatedState = { ...taskAppState, tasks: updatedTasks };
@@ -22,8 +23,11 @@ const TaskApp = () => {
   };
 
   const addTask = (task: TaskItem) => {
-    setTaskAppState({ tasks: [...taskAppState.tasks, task] });
+    const newTask = { ...task, id: indexCounter.toString() };
+    setTaskAppState({ tasks: [...taskAppState.tasks, newTask] });
+    setIndexCounter(indexCounter + 1);
   };
+  
   return (
     <div className="container py-10 max-w-4xl mx-auto">
       <h1 className="text-3xl mb-2 font-bold text-slate-700">

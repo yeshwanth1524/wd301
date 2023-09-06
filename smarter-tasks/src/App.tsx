@@ -5,6 +5,7 @@ import TaskDetailsPage from "./pages/TaskDetailsPage";
 import Layout from "./Layout";
 import Signin from "./pages/Signin";
 import ProtectedRoute from "./ProtectedRoute";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,14 @@ const router = createBrowserRouter([
         path: "tasks/:id",
         element: (<TaskDetailsPage />)
       },
+      {
+        path: "*",
+        element: <Navigate to="/notfound" replace />
+      },
+      {
+        path: "Notfound",
+        element: <NotFound />,
+      }  
     ]
   }
 ]);
