@@ -1,12 +1,12 @@
 import { TaskItem } from "./types";
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 interface TaskFormProps {
   addTask: (task: TaskItem) => void;
 }
 
 interface TaskFormState {
-    indexCounter: number,
     title: string;
     dueDate: string;
     description: string; 
@@ -14,7 +14,6 @@ interface TaskFormState {
 
 const TaskForm = (props: TaskFormProps) => {
   const [formState, setFormState] = React.useState<TaskFormState>({
-    indexCounter: 1,
     title: "",
     description: "",
     dueDate: "",
@@ -27,7 +26,7 @@ const TaskForm = (props: TaskFormProps) => {
       return;
     }
     const newTask: TaskItem = {
-      id: formState.indexCounter.toString(),
+      id: uuidv4(),
       title: formState.title,
       description: formState.description,
       dueDate: formState.dueDate,
@@ -35,13 +34,11 @@ const TaskForm = (props: TaskFormProps) => {
 
     props.addTask(newTask);
 
-    setFormState((prevState) => ({
-        ...prevState,
-        indexCounter: prevState.indexCounter + 1,
+    setFormState({
         title: "",
         description: "",
         dueDate: "",
-    }));
+    });
   };
 
   const titleChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {

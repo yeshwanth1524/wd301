@@ -1,11 +1,9 @@
-// import React from "react";
+
 import { TaskItem } from "./types";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-
-// interface TaskAppProp {}
-// const TaskApp = (props: TaskAppProp) => 
+import { v4 as uuidv4 } from "uuid"; 
 
 interface TaskAppState {
   tasks: TaskItem[];
@@ -15,7 +13,6 @@ const TaskApp = () => {
   const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks", {
     tasks: [],
   });
-  const [indexCounter, setIndexCounter] = useLocalStorage<number>("taskIndexCounter", 1);
 
   const LeftoverTasks = (updatedTasks: TaskItem[]) => {
     const updatedState = { ...taskAppState, tasks: updatedTasks };
@@ -23,9 +20,8 @@ const TaskApp = () => {
   };
 
   const addTask = (task: TaskItem) => {
-    const newTask = { ...task, id: indexCounter.toString() };
+    const newTask = { ...task, id: uuidv4() };
     setTaskAppState({ tasks: [...taskAppState.tasks, newTask] });
-    setIndexCounter(indexCounter + 1);
   };
   
   return (
