@@ -18,6 +18,7 @@ const TaskList = (props: Props) => {
   const list = props.tasks.map((task, idx) => (
     <div key={idx} className="taskItemWrapper">
       <Task
+        id={task.id}
         title={task.title}
         description={task.description}
         dueDate={task.dueDate}
