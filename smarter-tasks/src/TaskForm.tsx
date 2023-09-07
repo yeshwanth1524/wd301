@@ -7,6 +7,7 @@ interface TaskFormProps {
 }
 
 interface TaskFormState {
+    id: string;
     title: string;
     dueDate: string;
     description: string; 
@@ -14,6 +15,7 @@ interface TaskFormState {
 
 const TaskForm = (props: TaskFormProps) => {
   const [formState, setFormState] = React.useState<TaskFormState>({
+    id: uuidv4(),
     title: "",
     description: "",
     dueDate: "",
@@ -35,6 +37,7 @@ const TaskForm = (props: TaskFormProps) => {
     props.addTask(newTask);
 
     setFormState({
+        id: uuidv4(),
         title: "",
         description: "",
         dueDate: "",
