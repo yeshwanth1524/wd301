@@ -42,7 +42,7 @@ export const addUser = async (dispatch: any, newUser: any) => {
     if (responseData.errors && responseData.errors.length > 0) {
       return { success: false, error: responseData.errors[0].message };
     }
-    dispatch({ type: "ADD_USER_SUCCESS", payload: responseData });
+    dispatch({ type: "ADD_USER_SUCCESS", payload: responseData.user });
     return { success: true };
   } catch (error) {
     console.error("Operation failed:", error);
