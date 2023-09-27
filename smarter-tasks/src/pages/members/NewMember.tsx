@@ -10,6 +10,11 @@ type FormInputs = {
   password: string;
 };
 
+type ApiResponse = {
+  success: boolean;
+  error?: string | null;
+};
+
 const NewMember = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
@@ -33,8 +38,8 @@ const NewMember = () => {
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     try {
       const { name, email, password } = data;
-      const response = await addUser(dispatch, { name, email, password });
-      if (response.ok) {
+      const response: ApiResponse = await addUser(dispatch, { name, email, password });
+      if (response.success) {
         closeModal();
       } else {
         setSubmissionError(response.error || "An error occurred.");
@@ -42,7 +47,7 @@ const NewMember = () => {
     } catch (error) {
       setSubmissionError("An error occurred.");
     }
-  };
+  };  
 
   return (
     <>
