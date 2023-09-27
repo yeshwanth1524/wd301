@@ -2,25 +2,14 @@ interface Project {
     id: number;
     name: string;
   }
-  // Now, I'll rename the interface in the `ProjectList` component from `State`
-  // to `ProjectsState`. And I'll also export the interface. 
-  
+
   export interface ProjectsState {
     projects: Project[];
     isLoading: boolean;
     isError: boolean;
     errorMessage: string;
   }
-  // Next, I'll comment the `Action` interface
-  
-  // interface Action {
-  //   type: string;
-  //   payload?: any;
-  // }
-  
-  // Then I'll define a new type called `ProjectsActions` 
-  // for all possible combimations of action objects.
-  
+
   export type ProjectsActions = 
     | { type: 'FETCH_PROJECTS_REQUEST' }
     | { type: 'FETCH_PROJECTS_SUCCESS'; payload: Project[] }
@@ -35,10 +24,8 @@ interface Project {
     errorMessage: ''
   };
   
-  // Then we will pass the `initialState` object to the `state` of reducer function.
   
   export const reducer = (state: ProjectsState = initialState, action: ProjectsActions): ProjectsState => {
-    // ...
     switch (action.type) {
       case "FETCH_PROJECTS_REQUEST":
         return {
@@ -59,8 +46,6 @@ interface Project {
           errorMessage: action.payload
         };           
         case 'ADD_PROJECT_SUCCESS':
-        // Here I'll insert new new project object, which is coming in this 
-        // `action.payload`, to the `projects` array present in state.
         return { ...state, projects: [...state.projects, action.payload] };  
       default:
         return state;

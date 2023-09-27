@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useUsersDispatch, useUsersState } from "../../context/members/context";
 import { deleteUser } from "../../context/members/actions";
 
 export default function MemberListItems() {
-  let state: any = useUsersState();
+  const state: any = useUsersState();
   const dispatchUsers = useUsersDispatch();
 
   const handleDelete = async (id: number) => {
