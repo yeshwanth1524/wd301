@@ -1,30 +1,18 @@
-// import React from "react";
-// First, I'll import the useProjectsState custom hook to access projects state.
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useProjectsState } from "../../context/projects/context";
 export default function ProjectListItems() {
-
-  // I'll define a new constant called `state`, to call the useProjectsState() hook, 
-  // and get access to projects state.
-  let state: any = useProjectsState();
-
-  // Next, I'll destructure the state object to gain access to projects, 
-  // isLoading, isError and errorMessage property.
+  const state: any = useProjectsState();
   const { projects, isLoading, isError, errorMessage } = state
   console.log(projects);
 
-  // If `isLoading` is true, and there are no projects, in that case, 
-  // I'll show a loading text
   if (projects.length === 0 && isLoading) {
     return <span>Loading...</span>;
   }
   
-// Next, if there is an error, I'll show the error message.
   if (isError) {
     return <span>{errorMessage}</span>;
   }
 
-  // And finally I'll iterate over the projects object to show the 
-  // individual projects card.
   return (
     <>
       {projects.map((project: any) => (
