@@ -8,16 +8,15 @@ import { addTask } from "../../context/task/actions";
 import { TaskDetailsPayload } from "../../context/task/types";
 
 const NewTask = () => {
-  let [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
-  let { projectID } = useParams();
-  let navigate = useNavigate();
+  const { projectID } = useParams();
+  const navigate = useNavigate();
 
   // Use react-hook-form to create form submission handler and state.
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<TaskDetailsPayload>();
   const projectState = useProjectsState();
   const taskDispatch = useTasksDispatch();
