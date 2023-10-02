@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useTasksDispatch, useTasksState } from "../../context/task/context";
@@ -8,6 +8,9 @@ import { useProjectsState } from "../../context/projects/context";
 import { TaskDetailsPayload } from "../../context/task/types";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import { useUsersState } from "../../context/members/context";
+import { fetchComments } from "../../context/comment/actions";
+import {useCommentDispatch} from "../../context/comment/context";
+import { NewComment } from "./NewComment";
 
 type TaskFormUpdatePayload = TaskDetailsPayload & {
   selectedPerson: string;
@@ -26,7 +29,6 @@ const formatDateForPicker = (isoDate: string) => {
 
 const TaskDetails = () => {
   const [isOpen, setIsOpen] = useState(true);
-
   const { projectID, taskID } = useParams();
   const navigate = useNavigate();
 
@@ -35,6 +37,11 @@ const TaskDetails = () => {
   const taskListState = useTasksState();
   const taskDispatch = useTasksDispatch();
   const memberState = useUsersState();
+  const commentDispatch = useCommentDispatch();
+  useEffect(() => {
+    fetchComments(commentDispatch, taskID ?? "", projectID ?? "");
+  }, [commentDispatch, projectID, taskID]);
+
   
   const selectedProject = projectState?.projects.filter(
     (project) => `${project.id}` === projectID
@@ -87,9 +94,8 @@ const TaskDetails = () => {
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            leaveTo="opacity-0">
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -103,7 +109,7 @@ const TaskDetails = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-auto rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -182,18 +188,15 @@ const TaskDetails = () => {
                           ))}
                         </Listbox.Options>
                       </Listbox>
+                      <NewComment />
                       <button
                         type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 mr-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      >
-                        Update
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 mr-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">Update
                       </button>
                       <button
                         type="submit"
                         onClick={closeModal}
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      >
-                        Cancel
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">Cancel
                       </button>
                     </form>
                   </div>

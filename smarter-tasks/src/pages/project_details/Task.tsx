@@ -5,6 +5,7 @@ import React, { forwardRef} from "react";
 import { useParams } from "react-router-dom";
 import { useTasksDispatch } from "../../context/task/context";
 import { deleteTask } from "../../context/task/actions";
+import "./TaskCard.css";
 
 const Task = forwardRef<
   HTMLDivElement,
