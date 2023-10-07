@@ -28,5 +28,8 @@
       "sizes": "512x512"
     }
   ],
-  "theme_color": "#AAF"
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#AAF",
+  "background_color": "black"
 }
