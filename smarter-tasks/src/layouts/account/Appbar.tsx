@@ -78,7 +78,7 @@ const Appbar = () => {
                   </Switch>
                   <Menu as="div" className="relative ml-3">
                     <div>
-                      <Menu.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-blue-600">
+                      <Menu.Button aria-label="user" className="rounded-full bg-white p-1 text-gray-400 hover:text-blue-600">
                         <UserCircleIcon className="h-6 w-6" aria-hidden="true" />
                       </Menu.Button>
                     </div>
