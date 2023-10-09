@@ -6,12 +6,16 @@ import { VitePWA } from "vite-plugin-pwa"
 
 export default ({ mode }) => {
   return defineConfig({
+    build: {
+      outDir: "dev-dist",
+    },
    plugins: [
     react(),
     VitePWA({
       devOptions: {
         enabled: true // For making sure that the PWA is testable from the Local dev environment
       },
+      registerType: 'autoUpdate',
       manifest: {
         name: "Smarter Tasks application",
         short_name: "Smarter Tasks",
@@ -45,6 +49,7 @@ export default ({ mode }) => {
         ],
         theme_color: '#AAF',
       },
+      
     }),
   ],
     define: {
